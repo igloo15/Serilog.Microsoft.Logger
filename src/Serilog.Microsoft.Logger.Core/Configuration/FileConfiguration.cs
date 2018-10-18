@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Serilog.Microsoft.Logger.Core.Configuration
 {
-    internal class FileConfiguration
+    public class FileConfiguration
     {
         public Dictionary<string, LogLevel> LogLevel { get; set; }
 
@@ -13,7 +13,7 @@ namespace Serilog.Microsoft.Logger.Core.Configuration
 
         public string Template { get; set; } = "{Timestamp:o} {RequestId,13} [{Level:u3}] {Message} ({EventId:x8}){NewLine}{Exception}";
 
-        public int FlushInterval { get; set; } = 5;
+        public int FlushInterval { get; set; } = 2;
 
         public string PathFormat { get; set; } = "App.log";
 

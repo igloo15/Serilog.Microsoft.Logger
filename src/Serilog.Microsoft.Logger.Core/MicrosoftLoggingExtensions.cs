@@ -23,6 +23,11 @@ namespace Microsoft.Extensions.Logging
                 return loggerFactory;
             }
 
+            return loggerFactory.AddFile(config);
+        }
+
+        public static ILoggerFactory AddFile(this ILoggerFactory loggerFactory, FileConfiguration config)
+        {
             var serilog = Utility.CreateLogger(config);
 
             return loggerFactory.AddSerilog(serilog, dispose: true);
@@ -40,6 +45,11 @@ namespace Microsoft.Extensions.Logging
                 return loggingBuilder;
             }
 
+            return loggingBuilder.AddFile(config);
+        }
+
+        public static ILoggingBuilder AddFile(this ILoggingBuilder loggingBuilder, FileConfiguration config)
+        {
             var serilog = Utility.CreateLogger(config);
 
             return loggingBuilder.AddSerilog(serilog, dispose: true);
