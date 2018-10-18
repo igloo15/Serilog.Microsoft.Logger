@@ -28,7 +28,7 @@ namespace Microsoft.Extensions.Logging
 
         public static ILoggerFactory AddFile(this ILoggerFactory loggerFactory, FileConfiguration config)
         {
-            var serilog = Utility.CreateLogger(config);
+            var serilog = Utility.CreateFileLogger(config);
 
             return loggerFactory.AddSerilog(serilog, dispose: true);
         }
@@ -50,7 +50,7 @@ namespace Microsoft.Extensions.Logging
 
         public static ILoggingBuilder AddFile(this ILoggingBuilder loggingBuilder, FileConfiguration config)
         {
-            var serilog = Utility.CreateLogger(config);
+            var serilog = Utility.CreateFileLogger(config);
 
             return loggingBuilder.AddSerilog(serilog, dispose: true);
         }

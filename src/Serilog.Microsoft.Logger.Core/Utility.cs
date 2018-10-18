@@ -38,7 +38,7 @@ namespace Serilog.Microsoft.Logger.Core
 
         }
 
-        public static Serilog.Core.Logger CreateLogger(FileConfiguration config)
+        public static Serilog.Core.Logger CreateFileLogger(FileConfiguration config)
         {
             if (config?.PathFormat == null) throw new ArgumentNullException(nameof(config.PathFormat));
 
