@@ -17,6 +17,7 @@ namespace Serilog.Microsoft.Logger.Tester
             var section = config.GetSection("Logging:File");
 
             factory.AddFile(section);
+            factory.AddSerilogConsole(config.GetSection("Logging:Console"));
 
             var logger = factory.CreateLogger("Program");
 
@@ -24,8 +25,6 @@ namespace Serilog.Microsoft.Logger.Tester
             {
                 logger.LogWarning("Test"+i+" {eventId} on template {template}", i, config.GetValue<string>("Logging:File:PathFormat"));
             }
-
-            Console.WriteLine("Done");
 
             Console.ReadLine();
 

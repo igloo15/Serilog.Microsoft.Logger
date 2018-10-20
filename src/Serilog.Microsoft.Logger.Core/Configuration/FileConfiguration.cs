@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MEL = Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +7,7 @@ namespace Serilog.Microsoft.Logger.Core.Configuration
 {
     public class FileConfiguration
     {
-        public Dictionary<string, LogLevel> LogLevel { get; set; }
+        public Dictionary<string, MEL.LogLevel> LogLevel { get; set; } = new Dictionary<string, MEL.LogLevel> { ["Default"] = MEL.LogLevel.Information };
 
         public bool Shared { get; set; } = false;
 
@@ -24,5 +24,7 @@ namespace Serilog.Microsoft.Logger.Core.Configuration
         public bool IncludeScopes { get; set; } = false;
 
         public int? BufferSize { get; set; }
+
+        public bool IsJson { get; set; } = false;
     }
 }

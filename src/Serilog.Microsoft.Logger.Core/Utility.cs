@@ -3,8 +3,10 @@ using Microsoft.Extensions.Logging;
 using Serilog.Debugging;
 using Serilog.Events;
 using Serilog.Formatting;
+using Serilog.Formatting.Compact;
 using Serilog.Formatting.Display;
 using Serilog.Microsoft.Logger.Core.Configuration;
+using Serilog.Sinks.SystemConsole.Themes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +44,10 @@ namespace Serilog.Microsoft.Logger.Core
         {
             if (config?.PathFormat == null) throw new ArgumentNullException(nameof(config.PathFormat));
 
-            var formatter = new MessageTemplateTextFormatter(config.Template, null);
+            var formatter = config.IsJson ?
+                (ITextFormatter)new RenderedCompactJsonFormatter()
+                : new MessageTemplateTextFormatter(config.Template, null);
+
             var bufferSize = config.BufferSize.HasValue ? config.BufferSize.Value : 10000;
             var configuration = new LoggerConfiguration()
                 .MinimumLevel.Is(GetMinimumLogLevel(config.LogLevel))
@@ -57,6 +62,29 @@ namespace Serilog.Microsoft.Logger.Core
                     rollingInterval: RollingInterval.Day,
                     rollOnFileSizeLimit: true), bufferSize: bufferSize, blockWhenFull: !config.BufferSize.HasValue);
             
+            if(!config.IsJson)
+                configuration.Enrich.With<EventNumEnricher>();
+
+            if (!config.IsJson && config.IncludeScopes)
+                configuration.Enrich.With<ScopeEnricher>();
+
+            foreach (var levelOverride in config.LogLevel ?? new Dictionary<string, LogLevel>())
+            {
+                configuration.MinimumLevel.Override(levelOverride.Key, ConvertLogLevel(levelOverride.Value));
+            }
+
+            return configuration.CreateLogger();
+        }
+
+        public static Serilog.Core.Logger CreateConsoleLogger(ConsoleConfiguration config)
+        {
+            var bufferSize = config.BufferSize.HasValue ? config.BufferSize.Value : 10000;
+            var configuration = new LoggerConfiguration()
+                .MinimumLevel.Is(GetMinimumLogLevel(config.LogLevel))
+                .Enrich.FromLogContext()
+                .WriteTo.Async(w => w.Console(
+                    outputTemplate: config.Template,
+                    theme: GetTheme(config.Theme)), bufferSize: bufferSize, blockWhenFull: !config.BufferSize.HasValue);
 
             configuration.Enrich.With<EventNumEnricher>();
 
@@ -71,7 +99,6 @@ namespace Serilog.Microsoft.Logger.Core
             return configuration.CreateLogger();
         }
 
-
         public static LogEventLevel GetMinimumLogLevel(Dictionary<string, LogLevel> levels)
         {
             var minimumLevel = LogEventLevel.Information;
@@ -82,6 +109,32 @@ namespace Serilog.Microsoft.Logger.Core
             return minimumLevel;
         }
 
+        public static ConsoleTheme GetTheme(string theme)
+        {
+            switch (theme)
+            {
+                case "None":
+                    return ConsoleTheme.None;
+                case "SystemConsoleThemeLiterate":
+                    return SystemConsoleTheme.Literate;
+                case "SystemConsoleThemeGrayscale":
+                    return SystemConsoleTheme.Grayscale;
+                case "SystemConsoleThemeColored":
+                    return SystemConsoleTheme.Colored;
+                case "SystemConsoleThemeNone":
+                    return ConsoleTheme.None;
+                case "AnsiConsoleThemeCode":
+                    return AnsiConsoleTheme.Code;
+                case "AnsiConsoleThemeGrayscale":
+                    return AnsiConsoleTheme.Grayscale;
+                case "AnsiConsoleThemeLiterate":
+                    return AnsiConsoleTheme.Literate;
+                case "AnsiConsoleThemeNone":
+                    return ConsoleTheme.None;
+                default:
+                    return SystemConsoleTheme.Literate;
+            }
+        }
 
     }
 }

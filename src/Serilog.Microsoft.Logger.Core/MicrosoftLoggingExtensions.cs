@@ -17,17 +17,22 @@ namespace Microsoft.Extensions.Logging
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
 
             var config = configuration.Get<FileConfiguration>();
-            if (string.IsNullOrWhiteSpace(config.PathFormat))
-            {
-                SelfLog.WriteLine("Unable to add the file logger: no PathFormat was present in the configuration");
-                return loggerFactory;
-            }
+            
 
             return loggerFactory.AddFile(config);
         }
 
         public static ILoggerFactory AddFile(this ILoggerFactory loggerFactory, FileConfiguration config)
         {
+            if (loggerFactory == null) throw new ArgumentNullException(nameof(loggerFactory));
+            if (config == null) throw new ArgumentNullException(nameof(config));
+
+            if (string.IsNullOrWhiteSpace(config.PathFormat))
+            {
+                SelfLog.WriteLine("Unable to add the file logger: no PathFormat was present in the configuration");
+                return loggerFactory;
+            }
+
             var serilog = Utility.CreateFileLogger(config);
 
             return loggerFactory.AddSerilog(serilog, dispose: true);
@@ -53,6 +58,46 @@ namespace Microsoft.Extensions.Logging
             var serilog = Utility.CreateFileLogger(config);
 
             return loggingBuilder.AddSerilog(serilog, dispose: true);
+        }
+
+        public static ILoggerFactory AddSerilogConsole(this ILoggerFactory loggerFactory, IConfigurationSection configuration)
+        {
+            if (loggerFactory == null) throw new ArgumentNullException(nameof(loggerFactory));
+            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+
+            var config = configuration.Get<ConsoleConfiguration>();
+
+            return loggerFactory.AddSerilogConsole(config);
+        }
+
+        public static ILoggerFactory AddSerilogConsole(this ILoggerFactory loggerFactory, ConsoleConfiguration config)
+        {
+            if (loggerFactory == null) throw new ArgumentNullException(nameof(loggerFactory));
+            if (config == null) throw new ArgumentNullException(nameof(config));
+
+            var serilog = Utility.CreateConsoleLogger(config);
+
+            return loggerFactory.AddSerilog(serilog);
+        }
+
+        public static ILoggingBuilder AddSerilogConsole(this ILoggingBuilder loggingBuilder, IConfigurationSection configuration)
+        {
+            if (loggingBuilder == null) throw new ArgumentNullException(nameof(loggingBuilder));
+            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+
+            var config = configuration.Get<ConsoleConfiguration>();
+
+            return loggingBuilder.AddSerilogConsole(config);
+        }
+
+        public static ILoggingBuilder AddSerilogConsole(this ILoggingBuilder loggingBuilder, ConsoleConfiguration config)
+        {
+            if (loggingBuilder == null) throw new ArgumentNullException(nameof(loggingBuilder));
+            if (config == null) throw new ArgumentNullException(nameof(config));
+
+            var serilog = Utility.CreateConsoleLogger(config);
+
+            return loggingBuilder.AddSerilog(serilog);
         }
     }
 }
