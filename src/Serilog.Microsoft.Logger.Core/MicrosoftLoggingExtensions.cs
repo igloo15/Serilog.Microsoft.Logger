@@ -1,8 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging.Configuration;
+using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Debugging;
 using Serilog.Microsoft.Logger.Core;
 using Serilog.Microsoft.Logger.Core.Configuration;
+using Serilog.Microsoft.Logger.Core.File;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -58,6 +62,20 @@ namespace Microsoft.Extensions.Logging
             var serilog = Utility.CreateFileLogger(config);
 
             return loggingBuilder.AddSerilog(serilog, dispose: true);
+        }
+
+        public static ILoggingBuilder AddFile(this ILoggingBuilder loggingBuilder)
+        {
+            loggingBuilder.Services.AddSingleton<ILoggerProvider, FileExtendedProvider>();
+            loggingBuilder.Services.AddSingleton<IConfigureOptions<FileConfiguration>, FileConfigSetup>();
+            return loggingBuilder;
+        }
+
+        public static ILoggingBuilder AddFile(this ILoggingBuilder loggingBuilder, Action<FileConfiguration> configure)
+        {
+            loggingBuilder.AddFile();
+            loggingBuilder.Services.Configure(configure);
+            return loggingBuilder;
         }
 
         public static ILoggerFactory AddSerilogConsole(this ILoggerFactory loggerFactory, IConfigurationSection configuration)
