@@ -6,6 +6,7 @@ using Serilog;
 using Serilog.Debugging;
 using Serilog.Microsoft.Logger.Core;
 using Serilog.Microsoft.Logger.Core.Configuration;
+using Serilog.Microsoft.Logger.Core.Console;
 using Serilog.Microsoft.Logger.Core.File;
 using System;
 using System.Collections.Generic;
@@ -116,6 +117,20 @@ namespace Microsoft.Extensions.Logging
             var serilog = Utility.CreateConsoleLogger(config);
 
             return loggingBuilder.AddSerilog(serilog);
+        }
+
+        public static ILoggingBuilder AddSerilogConsole(this ILoggingBuilder loggingBuilder)
+        {
+            loggingBuilder.Services.AddSingleton<ILoggerProvider, ConsoleExtendedProvider>();
+            loggingBuilder.Services.AddSingleton<IConfigureOptions<ConsoleConfiguration>, ConsoleConfigSetup>();
+            return loggingBuilder;
+        }
+
+        public static ILoggingBuilder AddSerilogConsole(this ILoggingBuilder loggingBuilder, Action<ConsoleConfiguration> configure)
+        {
+            loggingBuilder.AddSerilogConsole();
+            loggingBuilder.Services.Configure(configure);
+            return loggingBuilder;
         }
     }
 }

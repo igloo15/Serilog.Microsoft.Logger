@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog.Configuration;
 using Serilog.Debugging;
 using Serilog.Events;
 using Serilog.Formatting;
@@ -44,28 +45,42 @@ namespace Serilog.Microsoft.Logger.Core
         {
             if (config?.PathFormat == null) throw new ArgumentNullException(nameof(config.PathFormat));
 
-            var formatter = config.IsJson ?
+            var formatter = config.RenderJson ?
                 (ITextFormatter)new RenderedCompactJsonFormatter()
                 : new MessageTemplateTextFormatter(config.Template, null);
 
-            var bufferSize = config.BufferSize.HasValue ? config.BufferSize.Value : 10000;
+            var bufferSize = config.AsyncBufferSize.HasValue ? config.AsyncBufferSize.Value : 10000;
             var configuration = new LoggerConfiguration()
                 .MinimumLevel.Is(GetMinimumLogLevel(config.LogLevel))
-                .Enrich.FromLogContext()
-                .WriteTo.Async(w => w.File(
-                    formatter,
-                    Environment.ExpandEnvironmentVariables(config.PathFormat),
-                    fileSizeLimitBytes: config.FileSizeLimit,
-                    retainedFileCountLimit: config.FileCountLimit,
-                    shared: config.Shared,
-                    flushToDiskInterval: TimeSpan.FromSeconds(config.FlushInterval),
-                    rollingInterval: RollingInterval.Day,
-                    rollOnFileSizeLimit: true), bufferSize: bufferSize, blockWhenFull: !config.BufferSize.HasValue);
+                .Enrich.FromLogContext();
+
+            Action<LoggerSinkConfiguration> configureFile = w => w.File(
+                        formatter,
+                        Environment.ExpandEnvironmentVariables(config.PathFormat),
+                        fileSizeLimitBytes: config.FileSizeLimit,
+                        retainedFileCountLimit: config.FileCountLimit,
+                        shared: config.Shared,
+                        flushToDiskInterval: TimeSpan.FromSeconds(config.FlushInterval),
+                        rollingInterval: config.RollingInterval,
+                        rollOnFileSizeLimit: true,
+                        buffered: config.GroupLogging);
+
+            if (config.AsyncBufferSize.HasValue)
+            {
+                configuration = configuration
+                    .WriteTo.Async(configureFile,
+                        bufferSize: bufferSize,
+                        blockWhenFull: !config.DropLogsOnBufferLimit);
+            }
+            else
+            {
+                configureFile(configuration.WriteTo);
+            }
             
-            if(!config.IsJson)
+            if(!config.RenderJson)
                 configuration.Enrich.With<EventNumEnricher>();
 
-            if (!config.IsJson && config.IncludeScopes)
+            if (!config.RenderJson && config.IncludeScopes)
                 configuration.Enrich.With<ScopeEnricher>();
 
             foreach (var levelOverride in config.LogLevel ?? new Dictionary<string, LogLevel>())
@@ -78,13 +93,27 @@ namespace Serilog.Microsoft.Logger.Core
 
         public static Serilog.Core.Logger CreateConsoleLogger(ConsoleConfiguration config)
         {
-            var bufferSize = config.BufferSize.HasValue ? config.BufferSize.Value : 10000;
+            var bufferSize = config.AsyncBufferSize.HasValue ? config.AsyncBufferSize.Value : 10000;
             var configuration = new LoggerConfiguration()
                 .MinimumLevel.Is(GetMinimumLogLevel(config.LogLevel))
-                .Enrich.FromLogContext()
-                .WriteTo.Async(w => w.Console(
-                    outputTemplate: config.Template,
-                    theme: GetTheme(config.Theme)), bufferSize: bufferSize, blockWhenFull: !config.BufferSize.HasValue);
+                .Enrich.FromLogContext();
+
+            Action<LoggerSinkConfiguration> configureConsole = w => w.Console(
+                        outputTemplate: config.Template,
+                        theme: GetTheme(config.Theme));
+
+            if (config.AsyncBufferSize.HasValue)
+            {
+                configuration
+                    .WriteTo.Async(configureConsole,
+                        bufferSize: bufferSize,
+                        blockWhenFull: !config.AsyncBufferSize.HasValue);
+            }
+            else
+            {
+                configureConsole(configuration.WriteTo);
+            }
+            
 
             configuration.Enrich.With<EventNumEnricher>();
 

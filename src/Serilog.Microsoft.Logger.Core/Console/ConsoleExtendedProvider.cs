@@ -6,19 +6,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Serilog.Microsoft.Logger.Core.File
+namespace Serilog.Microsoft.Logger.Core
 {
     /// <summary>
-    /// Extended Logger with Options
+    /// An Extended Provider for Serilogging to Console
     /// </summary>
-    [ProviderAlias("File")]
-    internal class FileExtendedProvider : SerilogLoggerProvider
+    [ProviderAlias("SerilogConsole")]
+    internal class ConsoleExtendedProvider : SerilogLoggerProvider
     {
         /// <summary>
         /// Construct a <see cref="SerilogLoggerProvider" />.
         /// </summary>
         /// <param name="options">The Options for this Provider</param>
-        public FileExtendedProvider(IOptions<FileConfiguration> options) : base(Utility.CreateFileLogger(options.Value), true)
+        public ConsoleExtendedProvider(IOptions<ConsoleConfiguration> options) : base(Utility.CreateConsoleLogger(options.Value), true)
         {
         }
     }

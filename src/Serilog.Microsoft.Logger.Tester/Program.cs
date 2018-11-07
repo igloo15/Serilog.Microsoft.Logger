@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -16,8 +17,19 @@ namespace Serilog.Microsoft.Logger.Tester
 
             var section = config.GetSection("Logging:File");
 
+            var hb = new HostBuilder()
+                .ConfigureLogging((context, builder) =>
+                {
+                    builder.AddConfiguration(config.GetSection("Logging"));
+
+                    builder.AddFile();
+                    builder.AddSerilogConsole();
+                });
+
+            var host = hb.Build();
+
             factory.AddFile(section);
-            factory.AddSerilogConsole(config.GetSection("Logging:Console"));
+            factory.AddSerilogConsole(config.GetSection("Logging:SerilogConsole"));
 
             var logger = factory.CreateLogger("Program");
 
