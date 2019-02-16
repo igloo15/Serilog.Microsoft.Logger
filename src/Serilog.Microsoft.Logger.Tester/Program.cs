@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using System.IO;
+using System.Text;
 
 namespace Serilog.Microsoft.Logger.Tester
 {
@@ -9,7 +11,6 @@ namespace Serilog.Microsoft.Logger.Tester
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
 
             LoggerFactory factory = new LoggerFactory();
 
