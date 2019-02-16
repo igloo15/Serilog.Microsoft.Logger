@@ -11,12 +11,8 @@ namespace Serilog.Microsoft.Logger.Tester
     {
         static void Main(string[] args)
         {
-
-            LoggerFactory factory = new LoggerFactory();
-
             var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
-            var section = config.GetSection("Logging:File");
 
             var hb = new HostBuilder()
                 .ConfigureLogging((context, builder) =>
@@ -29,19 +25,18 @@ namespace Serilog.Microsoft.Logger.Tester
 
             var host = hb.Build();
 
-            factory.AddFile(section);
-            factory.AddSerilogConsole(config.GetSection("Logging:SerilogConsole"));
+            var anotherLogger = host.Services.GetService(typeof(ILogger<Program>)) as ILogger<Program>;
 
-            var logger = factory.CreateLogger("Program");
+            anotherLogger.LogWarning("Does this work");
 
+            
             for(int i = 0; i < 1000; i++)
             {
-                logger.LogWarning("Test"+i+" {eventId} on template {template}", i, config.GetValue<string>("Logging:File:PathFormat"));
+                anotherLogger.LogWarning("Test"+i+" {eventId} on template {template}", i, config.GetValue<string>("Logging:File:PathFormat"));
             }
 
             Console.ReadLine();
-
-            factory.Dispose();
+            host.Dispose();
         }
     }
 }
