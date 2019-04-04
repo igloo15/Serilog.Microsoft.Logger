@@ -4,9 +4,9 @@ A not pre release package for extending Microsoft.Extensions.Logging with the la
 
 ## Packages
 
-![Nuget](https://img.shields.io/nuget/dt/Cake.igloo15.Scripts.NuGet.svg?label=igloo15.Serilog.Microsoft.Logging.File)
-![Nuget](https://img.shields.io/nuget/dt/Cake.igloo15.Scripts.Changelog.svg?label=igloo15.Serilog.Microsoft.Logging.Console)
-![Nuget](https://img.shields.io/nuget/dt/Cake.igloo15.Scripts.Markdown.svg?label=igloo15.Serilog.Microsoft.Logging.Core)
+[![Nuget](https://img.shields.io/nuget/dt/Cake.igloo15.Scripts.NuGet.svg?label=igloo15.Serilog.Microsoft.Logging.File)](https://www.nuget.org/packages/igloo15.Serilog.Microsoft.Logging.File/)
+[![Nuget](https://img.shields.io/nuget/dt/Cake.igloo15.Scripts.Changelog.svg?label=igloo15.Serilog.Microsoft.Logging.Console)](https://www.nuget.org/packages/igloo15.Serilog.Microsoft.Logging.Console/)
+[![Nuget](https://img.shields.io/nuget/dt/Cake.igloo15.Scripts.Markdown.svg?label=igloo15.Serilog.Microsoft.Logging.Core)](https://www.nuget.org/packages/igloo15.Serilog.Microsoft.Logging.Core/)
 
 ## Install
 
