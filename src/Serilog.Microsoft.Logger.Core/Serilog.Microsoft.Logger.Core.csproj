@@ -13,7 +13,7 @@
     <PackageVersion>$(Version)</PackageVersion>
     <Title>igloo15.Serilog.Microsoft.Logging.Core</Title>
     <Authors>igloo15</Authors>
-    <Description>Extends Microsoft.Extensions.Logging to add support for Serilog Console and File. This library uses up to date Serilog packages and provides a official release for console and file logging sinks</Description>
+    <Description>A core library that is used to support igloo15.Serilog.Microsoft.Logging.Console and igloo15.Serilog.Microsoft.Logging.File packages</Description>
     <PackageProjectUrl>https://github.com/igloo15/Serilog.Microsoft.Logger</PackageProjectUrl>
     <PackageTags>serilog;logging;file;core;asp.net;microsoft;extensions</PackageTags>
     <RepositoryUrl>https://github.com/igloo15/Serilog.Microsoft.Logger.git</RepositoryUrl>
