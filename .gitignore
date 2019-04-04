@@ -7,7 +7,7 @@
 [Dd]ist/
 Win32/
 LocalFeed/
-tools/
+/tools/
 
 packages.local/
 docs/codecoverage/coverage.json
@@ -208,4 +208,4 @@ $RECYCLE.BIN/
 *.~ml
 # tools/nuget.exe
 # tools/packages.config.md5sum
-!.\\tools\\packages.config
+!/tools/packages.config
