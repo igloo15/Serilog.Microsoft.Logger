@@ -2,7 +2,7 @@
 using Serilog.Events;
 using System.Linq;
 
-namespace Serilog.Microsoft.Logger.Core
+namespace Serilog.Microsoft.Logging.Core
 {
     public class ScopeEnricher : ILogEventEnricher
     {

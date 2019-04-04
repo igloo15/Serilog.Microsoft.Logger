@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>igloo15.Serilog.Microsoft.Logger</AssemblyName>
-    <RootNamespace>Serilog.Microsoft.Logger.Core</RootNamespace>
+    <AssemblyName>igloo15.Serilog.Microsoft.Logging.Core</AssemblyName>
+    <RootNamespace>Serilog.Microsoft.Logging.Core</RootNamespace>
     <BaseOutputPath>$(MSBuildProjectFullPath)\..\..\..\dist\Serilog.Microsoft.Logger.Core</BaseOutputPath>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
@@ -11,7 +11,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageVersion>$(Version)</PackageVersion>
-    <Title>igloo15.Serilog.Microsoft.Logging</Title>
+    <Title>igloo15.Serilog.Microsoft.Logging.Core</Title>
     <Authors>igloo15</Authors>
     <Description>Extends Microsoft.Extensions.Logging to add support for Serilog Console and File. This library uses up to date Serilog packages and provides a official release for console and file logging sinks</Description>
     <PackageProjectUrl>https://github.com/igloo15/Serilog.Microsoft.Logger</PackageProjectUrl>

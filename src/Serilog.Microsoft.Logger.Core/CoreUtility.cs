@@ -2,7 +2,7 @@
 using Serilog.Events;
 using System.Collections.Generic;
 
-namespace Serilog.Microsoft.Logger.Core
+namespace Serilog.Microsoft.Logging.Core
 {
     public static class CoreUtility
     {

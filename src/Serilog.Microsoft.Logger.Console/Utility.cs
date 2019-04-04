@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Serilog.Configuration;
-using Serilog.Microsoft.Logger.Core;
+using Serilog.Microsoft.Logging.Core;
 using Serilog.Sinks.SystemConsole.Themes;
 using System;
 using System.Collections.Generic;

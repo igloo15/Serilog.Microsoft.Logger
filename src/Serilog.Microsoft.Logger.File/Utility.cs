@@ -3,7 +3,7 @@ using Serilog.Configuration;
 using Serilog.Formatting;
 using Serilog.Formatting.Compact;
 using Serilog.Formatting.Display;
-using Serilog.Microsoft.Logger.Core;
+using Serilog.Microsoft.Logging.Core;
 using System;
 using System.Collections.Generic;
 

@@ -2,7 +2,7 @@
 using Serilog.Events;
 using Serilog.Formatting.Compact;
 
-namespace Serilog.Microsoft.Logger.Core
+namespace Serilog.Microsoft.Logging.Core
 {
     public class EventNumEnricher : ILogEventEnricher
     {
