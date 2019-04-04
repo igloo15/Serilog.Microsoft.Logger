@@ -1,0 +1,155 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The File Settings Schema",
+  "required": [
+    "LogLevel",
+    "PathFormat"
+  ],
+  "properties": {
+    "LogLevel": {
+      "$id": "#/properties/LogLevel",
+      "type": "object",
+      "title": "The Loglevel Schema",
+      "required": [
+        "Default"
+      ],
+      "properties": {
+        "Default": {
+          "$id": "#/properties/LogLevel/properties/Default",
+          "type": "string",
+          "title": "The Default",
+          "default": "",
+          "examples": [
+            "Warning"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "Shared": {
+      "$id": "#/properties/Shared",
+      "type": "boolean",
+      "title": "The Shared",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "Template": {
+      "$id": "#/properties/Template",
+      "type": "string",
+      "title": "The Template",
+      "default": "",
+      "examples": [
+        "{Timestamp:o} {RequestId,13} [{Level:u3}] {Message} ({EventId:x8}){NewLine}{Exception}"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "FlushInterval": {
+      "$id": "#/properties/FlushInterval",
+      "type": "integer",
+      "title": "The Flushinterval",
+      "default": 2,
+      "examples": [
+        2
+      ]
+    },
+    "PathFormat": {
+      "$id": "#/properties/PathFormat",
+      "type": "string",
+      "title": "The Pathformat",
+      "default": "App.log",
+      "examples": [
+        "Logs/MyApp.log"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "FileCountLimit": {
+      "$id": "#/properties/FileCountLimit",
+      "type": "integer",
+      "title": "The Filecountlimit",
+      "default": 31,
+      "examples": [
+        31
+      ]
+    },
+    "FileSizeLimitMegaBytes": {
+      "$id": "#/properties/FileSizeLimitMegaBytes",
+      "type": "number",
+      "title": "The Filesizelimitmegabytes",
+      "default": 10737.41824,
+      "examples": [
+        10737.41824
+      ],
+      "pattern": "^(.*)$"
+    },
+    "FileSizeLimit": {
+      "$id": "#/properties/FileSizeLimit",
+      "type": "number",
+      "title": "The Filesizelimit",
+      "default": 1073741824,
+      "examples": [
+        1073741824
+      ],
+      "pattern": "^(.*)$"
+    },
+    "IncludeScopes": {
+      "$id": "#/properties/IncludeScopes",
+      "type": "boolean",
+      "title": "The Includescopes",
+      "default": false,
+      "examples": [
+        true
+      ]
+    },
+    "RenderJson": {
+      "$id": "#/properties/RenderJson",
+      "type": "boolean",
+      "title": "The Renderjson",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "RollingInterval": {
+      "$id": "#/properties/RollingInterval",
+      "type": "string",
+      "title": "The Rollinginterval",
+      "default": "Day",
+      "examples": [
+        "Hour"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "GroupLogging": {
+      "$id": "#/properties/GroupLogging",
+      "type": "boolean",
+      "title": "The Grouplogging",
+      "default": false,
+      "examples": [
+        true
+      ]
+    },
+    "AsyncBufferSize": {
+      "$id": "#/properties/AsyncBufferSize",
+      "type": "integer",
+      "title": "The Asyncbuffersize",
+      "default": 10000,
+      "examples": [
+        10000
+      ]
+    },
+    "DropLogsOnBufferLimit": {
+      "$id": "#/properties/DropLogsOnBufferLimit",
+      "type": "boolean",
+      "title": "The Droplogsonbufferlimit",
+      "default": false,
+      "examples": [
+        false
+      ]
+    }
+  }
+}

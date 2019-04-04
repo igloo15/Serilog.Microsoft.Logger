@@ -1,0 +1,79 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Console Settings Schema",
+  "required": [
+    "LogLevel"
+  ],
+  "properties": {
+    "LogLevel": {
+      "$id": "#/properties/LogLevel",
+      "type": "object",
+      "title": "The Loglevel",
+      "required": [
+        "Default"
+      ],
+      "properties": {
+        "Default": {
+          "$id": "#/properties/LogLevel/properties/Default",
+          "type": "string",
+          "title": "The Default",
+          "default": "",
+          "examples": [
+            "Information"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "Theme": {
+      "$id": "#/properties/Theme",
+      "type": "string",
+      "title": "The Theme",
+      "default": "SystemConsoleThemeLiterate",
+      "examples": [
+        "SystemConsoleThemeLiterate"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "IncludeScopes": {
+      "$id": "#/properties/IncludeScopes",
+      "type": "boolean",
+      "title": "The Includescopes",
+      "default": false,
+      "examples": [
+        true
+      ]
+    },
+    "Template": {
+      "$id": "#/properties/Template",
+      "type": "string",
+      "title": "The Template",
+      "default": "",
+      "examples": [
+        "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "AsyncBufferSize": {
+      "$id": "#/properties/AsyncBufferSize",
+      "type": "integer",
+      "title": "The Asyncbuffersize Schema",
+      "default": 10000,
+      "examples": [
+        10000
+      ]
+    },
+    "DropLogsOnBufferLimit": {
+      "$id": "#/properties/DropLogsOnBufferLimit",
+      "type": "boolean",
+      "title": "The Droplogsonbufferlimit",
+      "default": false,
+      "examples": [
+        false
+      ]
+    }
+  }
+}
