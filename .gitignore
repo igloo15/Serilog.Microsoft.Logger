@@ -8,7 +8,7 @@
 Win32/
 LocalFeed/
 tools/
-!tools/packages.config
+
 packages.local/
 docs/codecoverage/coverage.json
 docs/codecoverage/coverage-hits.txt
@@ -206,5 +206,6 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 *.~ml
-tools/nuget.exe
-tools/packages.config.md5sum
+# tools/nuget.exe
+# tools/packages.config.md5sum
+!.\\tools\\packages.config
