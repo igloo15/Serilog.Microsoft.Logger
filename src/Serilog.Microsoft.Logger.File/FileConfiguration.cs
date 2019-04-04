@@ -1,9 +1,7 @@
 ﻿using MEL = Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Serilog.Microsoft.Logger.Core.Configuration
+namespace Serilog.Microsoft.Logging.File
 {
     /// <summary>
     /// The Configuration object for File logging with Serilog
@@ -45,7 +43,8 @@ namespace Serilog.Microsoft.Logger.Core.Configuration
         /// <summary>
         /// Max size of file before a new file is created in megabytes
         /// </summary>
-        public double FileSizeLimitMegaBytes {
+        public double FileSizeLimitMegaBytes
+        {
 
             get => FileSizeLimit / ByteMegaByteConversion;
 

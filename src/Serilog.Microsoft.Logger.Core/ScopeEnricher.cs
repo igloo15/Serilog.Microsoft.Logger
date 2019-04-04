@@ -1,13 +1,10 @@
 ﻿using Serilog.Core;
 using Serilog.Events;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Serilog.Microsoft.Logger.Core
 {
-    class ScopeEnricher : ILogEventEnricher
+    public class ScopeEnricher : ILogEventEnricher
     {
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {

@@ -1,10 +1,7 @@
-﻿using Serilog.Sinks.SystemConsole.Themes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using MEL = Microsoft.Extensions.Logging;
 
-namespace Serilog.Microsoft.Logger.Core.Configuration
+namespace Serilog.Microsoft.Logging.Console
 {
     /// <summary>
     /// Configuration object for console with serilog

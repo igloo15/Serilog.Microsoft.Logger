@@ -1,12 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Serilog.Extensions.Logging;
-using Serilog.Microsoft.Logger.Core.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Serilog.Microsoft.Logger.Core.File
+namespace Serilog.Microsoft.Logging.File
 {
     /// <summary>
     /// Extended Logger with Options

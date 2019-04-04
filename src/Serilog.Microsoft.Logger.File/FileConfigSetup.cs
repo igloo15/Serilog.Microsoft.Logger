@@ -1,12 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging.Configuration;
+﻿using Microsoft.Extensions.Logging.Configuration;
 using Microsoft.Extensions.Options;
-using Serilog.Microsoft.Logger.Core.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Serilog.Microsoft.Logger.Core.File
+namespace Serilog.Microsoft.Logging.File
 {
     internal class FileConfigSetup : ConfigureFromConfigurationOptions<FileConfiguration>
     {
