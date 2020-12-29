@@ -1,6 +1,6 @@
 igloo15.Serilog.Microsoft.Logger
 ===
-A not pre release package for extending Microsoft.Extensions.Logging with the latest Serilog Console and File Sinks
+A not pre release package for extending Microsoft.Extensions.Logging with the latest Serilog Console and File Sinks now a prerelease version
 
 ## Packages
 
